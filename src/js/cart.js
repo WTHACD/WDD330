@@ -1,27 +1,7 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-
-function addProductToCart(product) {
-  let cart = getLocalStorage("so-cart");
-  if (!Array.isArray(cart)) {
-    cart = [];
-  }
-  cart.push(product);
-
-  setLocalStorage("so-cart", cart);
-}
+import { getLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
-  let cartItems = getLocalStorage("so-cart");
-
-  console.log("Tipo de cartItems:", typeof cartItems);
-  console.log("Contenido de cartItems:", cartItems);
-  console.log("¿Es array?:", Array.isArray(cartItems));
-
-  if (!Array.isArray(cartItems)) {
-    console.warn("so-cart no es un array. Usando arreglo vacío.");
-    cartItems = [];
-  }
-
+  const cartItems = getLocalStorage("so-cart");
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
