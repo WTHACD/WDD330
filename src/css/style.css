@@ -241,6 +241,35 @@ button {
   grid-column: 3;
 }
 
+
+
+.product-categories {
+  text-align: center;
+  padding: 1em;
+}
+
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1em;
+   padding: 1em 0;
+}
+
+.category-item {
+  text-align: center;
+}
+
+.category-item a {
+  text-decoration: none;
+  color: var(--dark-grey);
+ }
+
+.category-item img {
+  max-width: 80px;
+  display: block;
+  margin: 0 auto 0.5em auto; 
+}
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;

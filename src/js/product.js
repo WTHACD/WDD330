@@ -1,11 +1,21 @@
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
-import { getParam } from "./utils.mjs";
+import { getParam, loadHeaderFooter } from "./utils.mjs"; 
 
-const category = "tents";
-const productId = getParam("products");
+async function initProductDetailsPage() {
+  await loadHeaderFooter(); 
 
-const dataSource = new ProductData(category);
+  const productId = getParam("id");
+  if (!productId) {
+    console.error("Product ID no especified in the URL.");
+   
+    document.querySelector("main").innerHTML = "<p>Product not found. No ID specified.</p>";
+    return;
+  }
 
-const product = new ProductDetails(productId, dataSource);
-product.init();
+  const dataSource = new ProductData();
+  const product = new ProductDetails(productId, dataSource);
+  product.init();
+}
+
+initProductDetailsPage();

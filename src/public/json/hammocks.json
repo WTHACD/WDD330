@@ -1,0 +1,69 @@
+[
+    {
+      "Id": "HMK001",
+      "NameWithoutBrand": "Portable Camping Hammock - Single",
+      "Name": "OutdoorLiving Portable Camping Hammock - Single",
+      "Image": "../images/hammocks/hammock-single-blue.jpg",
+      "Colors": [
+        {
+          "ColorCode": "01",
+          "ColorName": "Blue"
+        }
+      ],
+      "DescriptionHtmlSimple": "Relax in style with this durable and lightweight portable camping hammock. Perfect for one person.",
+      "SuggestedRetailPrice": 49.99,
+      "Brand": {
+        "Id": "OL001",
+        "LogoSrc": "../images/logos/outdoorliving-logo.jpg",
+        "Name": "OutdoorLiving"
+      },
+      "ListPrice": 39.99,
+      "FinalPrice": 39.99
+    },
+    {
+      "Id": "HMK002",
+      "NameWithoutBrand": "Double Parachute Hammock - Extra Large",
+      "Name": "TrailBliss Double Parachute Hammock - Extra Large",
+      "Image": "../images/hammocks/hammock-double-green.jpg",
+      "Colors": [
+        {
+          "ColorCode": "01",
+          "ColorName": "Forest Green"
+        },
+        {
+          "ColorCode": "02",
+          "ColorName": "Red/Grey"
+        }
+      ],
+      "DescriptionHtmlSimple": "Spacious and comfortable double hammock made from high-strength parachute nylon. Includes straps and carabiners.",
+      "SuggestedRetailPrice": 79.99,
+      "Brand": {
+        "Id": "TB002",
+        "LogoSrc": "../images/logos/trailbliss-logo.jpg",
+        "Name": "TrailBliss"
+      },
+      "ListPrice": 65.00,
+      "FinalPrice": 59.99
+    },
+    {
+      "Id": "HMK003",
+      "NameWithoutBrand": "Ultralight Travel Hammock",
+      "Name": "NomadGear Ultralight Travel Hammock",
+      "Image": "../images/hammocks/hammock-ultralight-orange.jpg",
+      "Colors": [
+        {
+          "ColorCode": "01",
+          "ColorName": "Orange"
+        }
+      ],
+      "DescriptionHtmlSimple": "The perfect ultralight hammock for backpacking and travel. Packs down small and is incredibly strong.",
+      "SuggestedRetailPrice": 99.00,
+      "Brand": {
+        "Id": "NG003",
+        "LogoSrc": "../images/logos/nomadgear-logo.jpg",
+        "Name": "NomadGear"
+      },
+      "ListPrice": 75.00,
+      "FinalPrice": 75.00
+    }
+  ]
