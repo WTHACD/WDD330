@@ -1,4 +1,4 @@
-
+const baseURL = import.meta.env.VITE_SERVER_URL
 function convertToJson(res) {
   if (res.ok) {
     return res.json();
@@ -8,38 +8,26 @@ function convertToJson(res) {
 }
 
 export default class ProductData {
-  constructor(category) {
-    this.category = category;
-    
-    this.path = `../json/${this.category}.json`;
+  constructor() {    
+   console.log("ProductData instantiated. BaseURL:", baseURL);
   }
-
-  async getData() {
-    try {
-      const response = await fetch(this.path);
-      console.log("Fetching from:", this.path);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("Loaded product data:", data);
-
-      return data;
-    } catch (error) {
-      console.error("Error loading product data:", error);
-      return [];
-    }
+//Acá hice el cambio de getData
+  async getData(category) {
+    const response = await fetch(`<span class="math-inline">\{baseURL\}products/search/</span>{category}`);
+    const data = await convertToJson(response); 
+    return data.Result; 
   }
 
   
-  async findProductById(id) {
-    const products = await this.getData(); 
-   
-    if (Array.isArray(products)) {
-      return products.find((item) => item.Id === id);
-    }
-    return undefined; 
+
+async findProductById(id) {
+  try {   
+    const response = await fetch(`<span class="math-inline">\{baseURL\}product/</span>{id}`);
+    const data = await convertToJson(response);
+    return data; 
+  } catch (error) {
+    console.error("Error fetching product by ID:", error);
+        return undefined; 
+  }
   }
 }
