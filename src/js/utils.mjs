@@ -62,7 +62,7 @@ export async function loadTemplate(path) {
 }
 
 export async function loadHeaderFooter() {
-  const headerTemplate = await loadTemplate("/public/partials/header.html");
+  const headerTemplate = await loadTemplate("/partials/header.html"); 
   const headerElement = document.querySelector("#main-header"); 
   if (headerTemplate && headerElement) {
     renderWithTemplate(headerTemplate, headerElement, null, () => {
@@ -71,7 +71,7 @@ export async function loadHeaderFooter() {
     if (!headerTemplate) console.error("Header template not loaded or found.");
     if (!headerElement) console.error("Header element (#main-header) not found in DOM.");
   }
-  const footerTemplate = await loadTemplate("/public/partials/footer.html");
+  const footerTemplate = await loadTemplate("/partials/footer.html"); 
   const footerElement = document.querySelector("#main-footer"); 
   if (footerTemplate && footerElement) {
     renderWithTemplate(footerTemplate, footerElement, null, () => {      
@@ -84,4 +84,4 @@ export async function loadHeaderFooter() {
     if (!footerTemplate) console.error("Footer template not loaded or found.");
     if (!footerElement) console.error("Footer element (#main-footer) not found in DOM.");
   }
-}
+} 
