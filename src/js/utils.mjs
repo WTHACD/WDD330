@@ -84,4 +84,4 @@ export async function loadHeaderFooter() {
     if (!footerTemplate) console.error("Footer template not loaded or found.");
     if (!footerElement) console.error("Footer element (#main-footer) not found in DOM.");
   }
-}
+} 
