@@ -38,3 +38,50 @@ export function renderListWithTemplate(template, parentElement, list, position =
   }
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
+
+export function renderWithTemplate(template, parentElement, data, callback) {
+  
+  parentElement.innerHTML = template;
+  if (callback) {
+    callback(data);
+  }
+}
+
+export async function loadTemplate(path) {
+  try {
+    const res = await fetch(path);
+    if (!res.ok) {
+      throw new Error(`Failed to load template: ${path}, Status: ${res.status}`);
+    }
+    const template = await res.text();
+    return template;
+  } catch (error) {
+    console.error("Error loading template:", error);
+    return null; 
+  }
+}
+
+export async function loadHeaderFooter() {
+  const headerTemplate = await loadTemplate("/public/partials/header.html");
+  const headerElement = document.querySelector("#main-header"); 
+  if (headerTemplate && headerElement) {
+    renderWithTemplate(headerTemplate, headerElement, null, () => {
+    });
+  } else {
+    if (!headerTemplate) console.error("Header template not loaded or found.");
+    if (!headerElement) console.error("Header element (#main-header) not found in DOM.");
+  }
+  const footerTemplate = await loadTemplate("/public/partials/footer.html");
+  const footerElement = document.querySelector("#main-footer"); 
+  if (footerTemplate && footerElement) {
+    renderWithTemplate(footerTemplate, footerElement, null, () => {      
+      const yearSpan = document.querySelector("#current-year");
+      if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+      }
+    });
+  } else {
+    if (!footerTemplate) console.error("Footer template not loaded or found.");
+    if (!footerElement) console.error("Footer element (#main-footer) not found in DOM.");
+  }
+}
