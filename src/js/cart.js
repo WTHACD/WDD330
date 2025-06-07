@@ -1,4 +1,4 @@
-import { getLocalStorage, loadHeaderFooter } from "./utils.mjs";
+import { getLocalStorage, setSessionStorage, loadHeaderFooter } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
@@ -21,12 +21,7 @@ function renderCartContents() {
 }
 
 function cartItemTemplate(item) {
-  // CORRECCIÓN DEFINITIVA:
-  // Se comprueba si existe la propiedad `item.Image` (para tiendas, hamacas)
-  // o si no, se usa `item.Images.PrimarySmall` (para mochilas, sacos de dormir).
-  // Esto evita el error y asegura que siempre tengamos una imagen.
   const imageUrl = item.Image || item.Images.PrimarySmall;
-
   const newItem = `<li class="cart-card divider">
     <a href="/product_pages/index.html?id=${item.Id}" class="cart-card__image">
       <img src="${imageUrl}" alt="${item.Name}" />
@@ -38,13 +33,30 @@ function cartItemTemplate(item) {
     <p class="cart-card__quantity">qty: 1</p>
     <p class="cart-card__price">$${item.FinalPrice}</p>
   </li>`;
-
   return newItem;
 }
+
+
+function prepareForCheckout(e) {
+  
+  e.preventDefault(); 
+
+  const cartItems = getLocalStorage("so-cart");
+ 
+  setSessionStorage("so-cart", cartItems);
+
+  window.location.href = e.currentTarget.href; 
+}
+
 
 async function initCartPage() {
   await loadHeaderFooter();
   renderCartContents();
+ 
+  const checkoutLink = document.querySelector(".cart-footer a");
+  if (checkoutLink) {
+    checkoutLink.addEventListener("click", prepareForCheckout);
+  }
 }
 
 initCartPage();

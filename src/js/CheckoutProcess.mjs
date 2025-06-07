@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getSessionStorage, alertMessage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 
@@ -21,6 +21,8 @@ function packageItems(items) {
   }));
 }
 
+
+
 export default class CheckoutProcess {
   constructor(key, outputSelector) {
     this.key = key;
@@ -32,9 +34,9 @@ export default class CheckoutProcess {
     this.orderTotal = 0;
     this.services = new ExternalServices();
   }
-
+  
   init() {
-    this.list = getLocalStorage(this.key);
+    this.list = getSessionStorage(this.key);
     this.calculateItemSummary();
   }
 
@@ -96,7 +98,9 @@ export default class CheckoutProcess {
       localStorage.removeItem(this.key);
       location.assign("/checkout/success.html");
     } catch (err) {
-      console.error("Error en el checkout:", err);
+       // get all the error messages from the server
+       const messages = Object.values(err.message).join(', ');
+       alertMessage(messages);
     }
   }
 }

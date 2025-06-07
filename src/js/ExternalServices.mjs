@@ -1,12 +1,5 @@
+import { convertToJson } from "./utils.mjs";
 const baseURL = "http://wdd330-backend.onrender.com/";
-
-async function convertToJson(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
-    throw new Error("Bad Response");
-  }
-}
 
 export default class ExternalServices {
   constructor() {}

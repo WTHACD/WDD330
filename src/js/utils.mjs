@@ -1,19 +1,16 @@
-// wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
-// or a more concise version if you are into that sort of thing:
-// export const qs = (selector, parent = document) => parent.querySelector(selector);
 
-// retrieve data from localstorage
+
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
-// save data to local storage
+
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
-// set a listener for both touchend and click
+
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
     event.preventDefault();
@@ -31,8 +28,7 @@ export function getParam(param) {
 }
 
 export function renderListWithTemplate(template, parentElement, list, position = "afterbegin", clear = false) {
-  const htmlStrings = list.map(template);
-  // if clear is true we need to clear out the contents of the parent.
+  const htmlStrings = list.map(template);  
   if (clear) {
     parentElement.innerHTML = "";
   }
@@ -62,7 +58,7 @@ export async function loadTemplate(path) {
 }
 
 export async function loadHeaderFooter() {
-  const headerTemplate = await loadTemplate("/partials/header.html"); 
+  const headerTemplate = await loadTemplate("/public/partials/header.html"); 
   const headerElement = document.querySelector("#main-header"); 
   if (headerTemplate && headerElement) {
     renderWithTemplate(headerTemplate, headerElement, null, () => {
@@ -71,7 +67,7 @@ export async function loadHeaderFooter() {
     if (!headerTemplate) console.error("Header template not loaded or found.");
     if (!headerElement) console.error("Header element (#main-header) not found in DOM.");
   }
-  const footerTemplate = await loadTemplate("/partials/footer.html"); 
+  const footerTemplate = await loadTemplate("/public/partials/footer.html"); 
   const footerElement = document.querySelector("#main-footer"); 
   if (footerTemplate && footerElement) {
     renderWithTemplate(footerTemplate, footerElement, null, () => {      
@@ -85,3 +81,40 @@ export async function loadHeaderFooter() {
     if (!footerElement) console.error("Footer element (#main-footer) not found in DOM.");
   }
 } 
+export async function convertToJson(res) {  
+  const jsonResponse = await res.json(); 
+  if (res.ok) {
+    return jsonResponse;
+  } else {  
+    throw { name: "servicesError", message: jsonResponse };
+  }
+}
+
+
+export function alertMessage(message, scroll = true) { 
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  alert.innerHTML = `<p>${message}</p><span>X</span>`;  
+  alert.addEventListener("click", function(e) {
+    if (e.target.tagName === 'SPAN') { 
+      document.querySelector("main").removeChild(this);
+    }
+  });
+  
+  const main = document.querySelector("main");
+  main.prepend(alert);
+  
+  if (scroll) {
+    window.scrollTo(0, 0);
+  }
+}
+
+// retrieve data from sessionstorage
+export function getSessionStorage(key) {
+  return JSON.parse(sessionStorage.getItem(key));
+}
+
+// save data to session storage
+export function setSessionStorage(key, data) {
+  sessionStorage.setItem(key, JSON.stringify(data));
+}
