@@ -1,4 +1,5 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { alertMessage } from "./utils.mjs";
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -32,7 +33,8 @@ export default class ProductDetails {
     cart.push(this.product);
     
     setLocalStorage("so-cart", cart);
-
+    alertMessage(`'${this.product.Name}' has been added to the cart.`);
+  
    
     const cartButton = document.getElementById("addToCart");
     cartButton.textContent = "Added!";
@@ -41,6 +43,7 @@ export default class ProductDetails {
         cartButton.classList.remove("added");
         cartButton.textContent = "Add to Cart";
     }, 2000);
+    
   }
 
   renderProductDetails() {
